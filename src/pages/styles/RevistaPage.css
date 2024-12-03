@@ -1,0 +1,61 @@
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  color: #004085;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.revista-cover {
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.revista-details-card {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.stats-section {
+  margin-top: 30px;
+}
+
+.stat-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.stat-title {
+  font-size: 1.2rem;
+  color: #343a40;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}

@@ -1,0 +1,26 @@
+/* App.css */
+
+/* Configuración del layout general */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+  }
+  
+  .content-container {
+    flex: 1; /* El contenido principal ocupa el espacio restante */
+  }
+  
+  footer {
+    background-color: #0e2a47;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto; /* Asegura que el footer se empuje al final */
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  

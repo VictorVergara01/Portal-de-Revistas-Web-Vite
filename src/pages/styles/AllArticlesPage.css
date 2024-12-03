@@ -1,0 +1,24 @@
+.all-articles-page {
+    padding: 20px;
+  }
+  
+  .articulo-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .articulo-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .articulo-card .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .articulo-card .card-text {
+    font-size: 1rem;
+    color: #555;
+  }
+  
