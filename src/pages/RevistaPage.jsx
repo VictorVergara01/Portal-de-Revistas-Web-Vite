@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Spinner, Row, Col, Card, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  CircularProgress,
+  Alert,
+} from "@mui/material";
 import { FaExternalLinkAlt, FaUniversity, FaCalendarAlt, FaBookOpen, FaUsers } from "react-icons/fa";
-import "./styles/RevistaPage.css";
 
 function RevistaPage() {
   const { id } = useParams();
@@ -13,7 +22,9 @@ function RevistaPage() {
   useEffect(() => {
     const fetchRevistaDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/revistas/${id}/`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/revistas/${id}/`
+        );
         setRevista(response.data);
       } catch (error) {
         console.error("Error fetching revista details:", error);
@@ -27,108 +38,207 @@ function RevistaPage() {
 
   if (loading) {
     return (
-      <Container className="text-center mt-5">
-        <Spinner animation="border" role="status" variant="primary" />
-        <p className="mt-3">Cargando detalles de la revista...</p>
-      </Container>
+      <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+        <CircularProgress />
+        <Typography variant="h6" mt={2}>
+          Cargando detalles de la revista...
+        </Typography>
+      </Box>
     );
   }
 
   if (!revista) {
     return (
-      <Container className="text-center mt-5">
-        <Alert variant="danger">No se encontraron los detalles de la revista.</Alert>
+      <Container>
+        <Box textAlign="center" mt={5}>
+          <Alert severity="error">No se encontraron los detalles de la revista.</Alert>
+        </Box>
       </Container>
     );
   }
 
   const imageUrl = revista.cover_image
-    ? `http://localhost:8000${revista.cover_image}`
+    ? `${import.meta.env.VITE_API_BASE_URL}${revista.cover_image}`
     : null;
 
   return (
-    <Container fluid className="revista-page">
-      <div className="header">
-        <h1 className="page-title">{revista.name}</h1>
-        <p className="subtitle">Detalles y estadísticas de la revista</p>
-      </div>
-      <Row className="justify-content-center">
-        <Col xs={12} md={4} className="text-center mb-4">
+    <Container>
+      {/* Header */}
+      <Box
+        sx={{
+          textAlign: "center",
+          mt: 4,
+          mb: 4,
+          py: 4,
+          px: 2,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+          color: "#fff",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+          marginTop: { xs: 10, md: 15.5 },
+
+        }}
+      >
+        <Typography variant="h3" gutterBottom sx={{
+          fontSize: { xs: "2rem", md: "3.5rem" },
+          fontWeight: "bold",
+        }}>
+          {revista.name}
+        </Typography>
+        <Typography variant="subtitle1" sx={{ fontSize: "1.2rem", opacity: 0.9 }}>
+          Detalles y estadísticas de la revista
+        </Typography>
+      </Box>
+
+      {/* Detalles principales */}
+      <Grid container spacing={4} justifyContent="center">
+        <Grid item xs={12} md={4} textAlign="center">
           {imageUrl ? (
-            <img
+            <Box
+              component="img"
               src={imageUrl}
               alt={`Portada de ${revista.name}`}
-              className="revista-cover img-fluid rounded shadow-lg"
+              sx={{
+                width: "100%",
+                maxHeight: 1000,
+                objectFit: "cover",
+                borderRadius: 2,
+                boxShadow: 3,
+              }}
             />
           ) : (
-            <div className="no-cover">Sin Portada Disponible</div>
+            <Box
+              sx={{
+                width: "100%",
+                height: 300,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#f5f5f5",
+                borderRadius: 2,
+                boxShadow: 3,
+              }}
+            >
+              <Typography variant="body1" color="text.secondary">
+                Sin Portada Disponible
+              </Typography>
+            </Box>
           )}
-        </Col>
-        <Col xs={12} md={8}>
-          <Card className="revista-details-card shadow-lg">
-            <Card.Body>
-              <Card.Title className="revista-title text-primary">{revista.name}</Card.Title>
-              <Card.Text className="revista-description text-muted">
+        </Grid>
+
+        <Grid item xs={12} md={8}>
+          <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
+            <CardContent>
+              <Typography variant="h5" color="primary" gutterBottom>
+                {revista.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
                 {revista.description || "No hay descripción disponible."}
-              </Card.Text>
-              <ul className="revista-details list-unstyled">
-                <li>
-                  <FaUniversity className="me-2 text-secondary" />
-                  <strong>Institución: </strong> {revista.publisher || "No especificada"}
-                </li>
-                <li>
-                  <FaCalendarAlt className="me-2 text-secondary" />
-                  <strong>Última Cosecha: </strong> {revista.last_harvest_date || "No disponible"}
-                </li>
-              </ul>
+              </Typography>
+              <Box mb={2}>
+                <Typography variant="body1">
+                  <FaUniversity className="icon" />
+                  <strong> Institución:</strong> {revista.publisher || "No especificada"}
+                </Typography>
+                <Typography variant="body1">
+                  <FaCalendarAlt className="icon" />
+                  <strong> Última Cosecha:</strong>{" "}
+                  {revista.last_harvest_date || "No disponible"}
+                </Typography>
+              </Box>
               {revista.official_url && (
                 <Button
-                  variant="success"
+                  variant="contained"
+                  color="success"
                   href={revista.official_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 me-2"
+                  sx={{ mr: 2 }}
                 >
-                  Página Oficial <FaExternalLinkAlt className="ms-2" />
+                  Página Oficial <FaExternalLinkAlt style={{ marginLeft: 8 }} />
                 </Button>
               )}
               <Button
-                as={Link}
+                component={Link}
                 to={`/revista/${revista.id}/articulos`}
-                variant="secondary"
-                className="mt-3"
+                state={{ selectedRevistaId: revista.id }} // Pasamos el ID de la revista
+                variant="outlined"
+                color="primary"
               >
                 Ver Artículos
               </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
 
-      {/* Nueva Sección de Estadísticas */}
-      <Row className="mt-5 stats-section">
-        <Col xs={12} md={4} className="text-center mb-4">
-          <div className="stat-card shadow-lg">
-            <FaBookOpen className="stat-icon text-primary" />
-            <h5 className="stat-title">Artículos Publicados</h5>
-            <p className="stat-value">{revista.total_articles || "0"}</p>
-          </div>
-        </Col>
-        <Col xs={12} md={4} className="text-center mb-4">
-          <div className="stat-card shadow-lg">
-            <FaUsers className="stat-icon text-success" />
-            <h5 className="stat-title">Autores de la Revista</h5>
-            <p className="stat-value">{revista.total_authors || "0"}</p>
-          </div>
-        </Col>
-        <Col xs={12} md={4} className="text-center mb-4">
-          <div className="stat-card shadow-lg">
-            <FaCalendarAlt className="stat-icon text-warning" />
-            <h5 className="stat-title">Año de Publicacion</h5>
-            <p className="stat-value">{revista.start_year || "Desconocido"}</p>
-          </div>
-        </Col>
-      </Row>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      {/* Sección de estadísticas */}
+      <Box mt={5}>
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={4} textAlign="center">
+            <Card
+              sx={{
+                padding: 3,
+                boxShadow: 3,
+                borderRadius: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <FaBookOpen className="stat-icon" size={40} color="#3f51b5" />
+              <Typography variant="h6" mt={2}>
+                Artículos Publicados
+              </Typography>
+              <Typography variant="h4">
+                {revista.total_articles || "0"}
+              </Typography>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4} textAlign="center">
+            <Card
+              sx={{
+                padding: 3,
+                boxShadow: 3,
+                borderRadius: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <FaUsers className="stat-icon" size={40} color="#4caf50" />
+              <Typography variant="h6" mt={2}>
+                Autores de la Revista
+              </Typography>
+              <Typography variant="h4">
+                {revista.total_authors || "0"}
+              </Typography>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4} textAlign="center">
+            <Card
+              sx={{
+                padding: 3,
+                boxShadow: 3,
+                borderRadius: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: 3,
+              }}
+            >
+              <FaCalendarAlt className="stat-icon" size={40} color="#ffc107" />
+              <Typography variant="h6" mt={2}>
+                Año de Publicación
+              </Typography>
+              <Typography variant="h4">
+                {revista.start_year || "Desconocido"}
+              </Typography>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
     </Container>
   );
 }

@@ -1,28 +1,30 @@
-.navbar {
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Estilo para el logo */
 .navbar-logo {
-  height: 50px;
+  height: 40px; /* Tamaño del logo */
   width: auto;
 }
 
-.navbar-nav .nav-link {
+/* Efecto hover para los enlaces de Drawer en móviles */
+.MuiListItem-root:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón de Menú de Hamburguesa */
+.MuiIconButton-root:hover {
+  background-color: #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+/* AppBar (Navbar Principal) */
+.navbar-appbar {
+  background: #ffffff !important; /* Fondo blanco */
+  border-bottom: 1px solid #ddd; /* Línea sutil en la parte inferior */
+}
+
+/* Texto de los botones */
+.navbar-button {
+  font-weight: bold;
   color: #333;
-  font-weight: 500;
-  padding: 0 15px;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #0056b3;
-}
-
-.navbar-toggler {
-  border: none;
-}
-
-.navbar-toggler-icon {
-  background-color: #007bff;
-  border-radius: 3px;
+  text-transform: none;
 }

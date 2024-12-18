@@ -1,55 +1,182 @@
+/* General */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.revistas-page {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
 .header {
   text-align: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
+  margin-bottom: 2rem;
 }
 
 .page-title {
   font-size: 2.5rem;
-  color: #004085;
+  color: #1a202c;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  color: #6c757d;
+  font-size: 1.1rem;
+  color: #4a5568;
 }
 
+/* Cards */
 .revista-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
-  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .revista-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+.revista-card .card-title {
+  font-size: 1.2rem;
+  color: #2d3748;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.revista-card .card-text {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.revista-card .btn-primary {
+  background-color: #3182ce;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.revista-card .btn-primary:hover {
+  background-color: #2b6cb0;
+}
+
+/* Cover Image */
 .revista-cover {
-  height: 500px;
+  max-height: 200px;
   object-fit: cover;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* List View */
+.list-group-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.list-group-item:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .list-view-image {
-  height: 80px;
-  width: 80px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-right: 15px;
+  border-radius: 5px;
+  margin-right: 1rem;
 }
 
-.sticky-sidebar {
-  position: sticky;
-  top: 20px;
+.list-item-content h5 {
+  font-size: 1.2rem;
+  color: #2d3748;
+  font-weight: 600;
 }
 
-.button-group .btn {
-  width: 48%;
+.list-item-content p {
+  font-size: 0.9rem;
+  color: #4a5568;
 }
 
-.list-item-content {
+/* Filters */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.filters-container .search-bar {
   flex: 1;
+  max-width: 600px;
+  margin-right: 1rem;
+}
+
+.filters-container .view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination .page-item {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background-color: #fff;
+  font-size: 0.9rem;
+  color: #2d3748;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-item:hover {
+  background-color: #3182ce;
+  color: #fff;
+}
+
+.pagination .page-item.active {
+  background-color: #3182ce;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  background-color: #edf2f7;
+  color: #2d3748;
+  text-align: center;
+  font-weight: 500;
 }

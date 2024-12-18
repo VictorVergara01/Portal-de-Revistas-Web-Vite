@@ -1,0 +1,51 @@
+.institution-filter-container {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #343a40;
+    margin-top: 18px;
+  }
+  
+  .filter-group {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #ffffff;
+  }
+  
+  .filter-group .form-check {
+    margin-bottom: 8px;
+  }
+  
+  .filter-actions {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .apply-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+  }
+  
+  .clear-btn {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+  }
+  
+  .apply-btn:hover,
+  .clear-btn:hover {
+    opacity: 0.9;
+  }
+  

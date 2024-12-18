@@ -1,95 +1,51 @@
-.search-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 20px auto;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .search-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .search-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .search-input {
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 100%;
-    transition: all 0.3s ease;
-  }
-  
-  .search-input:focus {
-    border-color: #007bff;
-    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .search-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 15px;
-  }
-  
-  .search-actions .search-btn,
-  .search-actions .clear-btn {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    flex: 1;
-  }
-  
-  .search-actions .search-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .search-actions .search-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .search-actions .clear-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .search-actions .clear-btn:hover {
-    background-color: #0055b1;
-  }
-  
-  @media (max-width: 768px) {
-    .search-container {
-      padding: 15px;
-    }
-  
-    .search-actions {
-      flex-direction: column;
-    }
-  
-    .search-actions .search-btn,
-    .search-actions .clear-btn {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .search-actions .clear-btn:last-child {
-      margin-bottom: 0;
-    }
-  }
-  
+/* Contenedor del componente de búsqueda */
+.search-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Espaciado con el resto del contenido */
+  position: relative; /* Necesario para posicionar iconos u otros elementos decorativos */
+  width: 100%;
+}
+
+/* Input del campo de búsqueda */
+.search-input {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 500px; /* Limita el ancho máximo */
+  padding: 12px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  color: #333; /* Color del texto */
+  border: 1px solid #ccc; /* Borde sutil */
+  border-radius: 25px; /* Bordes redondeados */
+  background-color: #f9f9f9; /* Fondo claro */
+  transition: all 0.3s ease; /* Transiciones suaves */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Placeholder del input */
+.search-input::placeholder {
+  color: #aaa; /* Color más claro para el placeholder */
+  font-style: italic; /* Estilo cursivo */
+}
+
+/* Efecto al enfocar el input */
+.search-input:focus {
+  outline: none; /* Elimina el borde predeterminado */
+  border-color: #1f7efa; /* Borde azul */
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 0 8px rgba(31, 126, 250, 0.3); /* Sombra azul */
+}
+
+/* Icono decorativo para búsqueda */
+.search-component::before {
+  content: "🔍"; /* Icono de lupa */
+  position: absolute; /* Posición absoluta para colocarlo dentro del input */
+  left: 15px; /* Alineado a la izquierda */
+  font-size: 18px; /* Tamaño del icono */
+  color: #aaa; /* Color del icono */
+}
+
+/* Ajuste para el input con icono */
+.search-input {
+  padding-left: 45px; /* Espaciado adicional para acomodar el icono */
+}

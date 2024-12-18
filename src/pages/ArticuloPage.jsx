@@ -1,28 +1,31 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Spinner, Card, Button, Row, Col, Badge } from "react-bootstrap";
-import { FaExternalLinkAlt, FaCalendarAlt, FaGlobe, FaBook, FaFilter } from "react-icons/fa";
-import "./styles/ArticuloPage.css";
+import {
+    Box,
+    Typography,
+    Container,
+    Grid,
+    Card,
+    CardContent,
+    Button,
+    Alert,
+    CircularProgress,
+    Chip,
+} from "@mui/material";
+import { FaBook, FaCalendarAlt, FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 
 function ArticuloPage() {
     const { id } = useParams();
     const [articulo, setArticulo] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    const location = useLocation();
-    const initialLanguage = location.state?.language || "es";
-    const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
-
-    const handleLanguageChange = (language) => {
-        setSelectedLanguage(language);
-    };
+    const [selectedLanguage, setSelectedLanguage] = useState("es");
 
     useEffect(() => {
         const fetchArticulo = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/articulos/${id}/`
+                    `${import.meta.env.VITE_API_BASE_URL}/api/articulos/${id}/`
                 );
                 setArticulo(response.data);
             } catch (error) {
@@ -35,86 +38,216 @@ function ArticuloPage() {
         fetchArticulo();
     }, [id]);
 
+    const handleLanguageChange = (language) => {
+        setSelectedLanguage(language);
+    };
+
     if (loading) {
         return (
-            <Container className="text-center mt-5">
-                <Spinner animation="border" role="status" />
-                <p className="mt-3">Cargando detalles del artículo...</p>
-            </Container>
+            <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+                <CircularProgress />
+                <Typography variant="h6" mt={2}>
+                    Cargando detalles del artículo...
+                </Typography>
+            </Box>
         );
     }
 
     if (!articulo) {
         return (
-            <Container className="text-center mt-5">
-                <p>No se encontró el artículo solicitado.</p>
+            <Container>
+                <Box textAlign="center" mt={5}>
+                    <Alert severity="error">No se encontraron los detalles del artículo.</Alert>
+                </Box>
             </Container>
         );
     }
 
     return (
-        <Container className="articulo-page mt-4">
-            <Card className="articulo-detail-card shadow-sm">
-                <Card.Header className="bg-primary text-white">
-                    <h4>{articulo.title}</h4>
-                </Card.Header>
-                <Card.Body>
-                    <Row>
-                        <Col md={8}>
-                            <Card.Text>
-                                <FaBook className="me-2 text-secondary" />
-                                <strong>Autor:</strong> {articulo.creator || "Desconocido"}
-                            </Card.Text>
-                            <Card.Text>
-                                <FaCalendarAlt className="me-2 text-secondary" />
-                                <strong>Publicado el:</strong> {articulo.date_published || "No disponible"}
-                            </Card.Text>
-                            <Card.Text>
-                                <FaGlobe className="me-2 text-secondary" />
-                                <strong>Idioma:</strong> {articulo.language || "No disponible"}
-                            </Card.Text>
-                            <Card.Text>
-                                <strong>Descripción en {selectedLanguage === "es" ? "Español" : "Inglés"}:</strong>
-                                <p className="mt-2">
-                                    {articulo[`description_${selectedLanguage}`] || "No disponible"}
-                                </p>
-                            </Card.Text>
-                            <Card.Text>
-                                <strong>Tema en {selectedLanguage === "es" ? "Español" : "Inglés"}:</strong>
-                                <Badge bg="info" className="ms-2">
-                                    {articulo[`subject_${selectedLanguage}`] || "No disponible"}
-                                </Badge>
-                            </Card.Text>
-                        </Col>
-                        <Col md={4} className="text-center">
-                            {articulo.official_link && (
+        <Container sx={{
+            marginBottom: { xs: 10, md: 5 },
+        }}>
+            {/* Header */}
+            <Box
+                sx={{
+                    textAlign: "center",
+                    mt: 4,
+                    mb: 4,
+                    py: 4,
+                    px: 2,
+                    borderRadius: 3,
+                    background: "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+                    color: "#fff",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                    marginTop: { xs: 10, md: 15.5 },
+                }}
+            >
+                <Typography
+                    variant="h3"
+                    gutterBottom
+                    sx={{
+                        fontSize: { xs: "2rem", md: "3.5rem" },
+                        fontWeight: "bold",
+                    }}
+                >
+                    {articulo.title}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ fontSize: "1.2rem", opacity: 0.9 }}>
+                    Detalles del artículo y temas principales
+                </Typography>
+            </Box>
+
+            {/* Detalles principales */}
+            <Grid container spacing={4} justifyContent="center">
+                <Grid item xs={12} md={8}>
+                    <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
+                        <CardContent>
+                            <Typography variant="h5" color="primary" gutterBottom>
+                                {articulo.title}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{ color: "#6B7280", lineHeight: 1.6, mb: 2 }}
+                            >
+                                {selectedLanguage === "es"
+                                    ? articulo.description_es || "No hay descripción disponible."
+                                    : articulo.description_en || "Description not available."}
+                            </Typography>
+                            <Box mb={2}>
+                                <Typography variant="body1">
+                                    <FaBook className="icon" />
+                                    <strong> Autor:</strong> {articulo.creator || "No especificado"}
+                                </Typography>
+                                <Typography variant="body1">
+                                    <FaCalendarAlt className="icon" />
+                                    <strong> Fecha de Publicación:</strong>{" "}
+                                    {articulo.date_published || "No disponible"}
+                                </Typography>
+                                <Typography variant="body1">
+                                    <FaGlobe className="icon" />
+                                    <strong> Idioma:</strong>{" "}
+                                    {articulo.language === "spa" ? "Español" : "Inglés"}
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="body1" sx={{ mb: 1 }}>
+                                    <strong>Temas:</strong>
+                                </Typography>
+                                {articulo.subject_es
+                                    .split(";")
+                                    .map((topic) => (
+                                        <Chip
+                                            key={topic}
+                                            label={topic.trim()}
+                                            sx={{
+                                                margin: 0.5,
+                                                backgroundColor: "#1976d2",
+                                                color: "#fff",
+                                            }}
+                                        />
+                                    ))}
+                            </Box>
+                            {articulo.identifier && (
                                 <Button
-                                    variant="success"
-                                    className="mt-3"
-                                    onClick={() => window.open(articulo.official_link, "_blank")}
+                                    variant="contained"
+                                    color="success"
+                                    href={articulo.identifier}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    sx={{ mt: 2, textTransform: "none", fontWeight: "bold" }}
                                 >
-                                    Ver artículo oficial <FaExternalLinkAlt />
+                                    Ver artículo oficial <FaExternalLinkAlt style={{ marginLeft: 8 }} />
                                 </Button>
                             )}
-                        </Col>
-                    </Row>
-                </Card.Body>
-                <Card.Footer>
-                    <Button
-                        variant={selectedLanguage === "es" ? "primary" : "outline-primary"}
-                        className="me-2"
-                        onClick={() => handleLanguageChange("es")}
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                {/* Información adicional */}
+                <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    sx={{
+                        marginBottom: { xs: 0, md: 10 }, // Añadido margen inferior
+                    }}
+                >
+                    <Card
+                        sx={{
+                            padding: 3,
+                            boxShadow: 3,
+                            borderRadius: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            background: "linear-gradient(135deg, #ffffff, #f8f9fc)",
+                        }}
                     >
-                        Español
-                    </Button>
-                    <Button
-                        variant={selectedLanguage === "en" ? "primary" : "outline-primary"}
-                        onClick={() => handleLanguageChange("en")}
+                        <Typography variant="h6" color="primary" gutterBottom>
+                            Información Adicional
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{ color: "#6B7280", lineHeight: 1.6, mb: 2 }}
+                        >
+                            <strong>Formato:</strong> {articulo.format || "No especificado"}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{ color: "#6B7280", lineHeight: 1.6, mb: 2 }}
+                        >
+                            <strong>Tipo de Recurso:</strong>{" "}
+                            {articulo.resource_type || "No especificado"}
+                        </Typography>
+                        {articulo.relation && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                href={articulo.relation}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{ mt: 2, textTransform: "none", fontWeight: "bold" }}
+                            >
+                                Documentos Relacionados
+                            </Button>
+                        )}
+                    </Card>
+                    <Card
+                        sx={{
+                            padding: 3,
+                            boxShadow: 3,
+                            borderRadius: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            background: "linear-gradient(135deg, #ffffff, #f8f9fc)",
+                            marginTop: 5.5
+                        }}
                     >
-                        Inglés
-                    </Button>
-                </Card.Footer>
-            </Card>
+
+                        <Typography
+                            variant="h6"
+                            color="primary"
+                            gutterBottom
+                            sx={{ mt: 0 }}
+                        >
+                            Cómo Citar este Artículo
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                background: "#f5f5f5",
+                                padding: 2,
+                                borderRadius: 2,
+                                fontFamily: "monospace",
+                                color: "#344767",
+                                wordWrap: "break-word",
+                            }}
+                        >
+                            {`"${articulo.title}", ${articulo.creator || "Autor desconocido"}, ${articulo.publisher || "Publicación desconocida"
+                                }, ${articulo.date_published || "Fecha no disponible"}.`}
+                        </Typography>
+                    </Card>
+                </Grid>
+            </Grid>
         </Container>
     );
 }

@@ -1,0 +1,125 @@
+/* Contenedor principal del filtro */
+.revistas-filter {
+    position: fixed;
+    /* Se mantiene visible mientras se hace scroll */
+    top: 75px;
+    /* Ajuste desde la parte superior */
+    left: 100px;
+    width: 500px;
+    /* Ancho fijo */
+    max-height: 90vh;
+    /* Altura máxima del contenedor */
+    background-color: #ffffff;
+    /* Fondo blanco */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    padding: 20px;
+    /* Espaciado interno */
+    overflow-y: auto;
+    /* Habilitar desplazamiento si excede la altura */
+    z-index: 1000;
+    /* Prioridad alta para renderizado */
+}
+
+/* Estilo para los subcomponentes */
+.revistas-filter>* {
+    margin-bottom: 20px;
+    /* Espaciado entre los componentes */
+}
+
+.revistas-filter>*:last-child {
+    margin-bottom: 0;
+    /* Eliminar margen inferior del último componente */
+}
+
+/* Transiciones para un efecto suave */
+.revistas-filter {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sticky-button {
+    position: fixed;
+    top: 80px;
+    /* Ajuste desde la parte superior */
+    left: 20px;
+    /* Posición a la izquierda para pantallas grandes */
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    /* Tamaño del icono */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    transition: all 0.3s ease;
+}
+
+.filter-icon {
+    font-size: 30px;
+    /* Tamaño del icono por defecto */
+}
+
+.sticky-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.sticky-button:active {
+    background-color: #003d80;
+    transform: scale(0.95);
+}
+
+/* Comportamiento responsivo */
+@media (max-width: 768px) {
+    .revistas-filter {
+        position: fixed;
+        /* Fijo en pantallas pequeñas */
+        top: 16%;
+        /* Centrado verticalmente */
+        left: 45%;
+        /* Centrado horizontalmente */
+        transform: translate(-50%, -10%);
+        width: 80%;
+        /* Más ancho en pantallas pequeñas */
+        height: 80%;
+        /* Altura relativa */
+        background-color: rgba(255, 255, 255, 0.95);
+        /* Fondo semitransparente */
+        border-radius: 15px;
+        /* Bordes más redondeados */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        /* Sombra más intensa */
+        overflow-y: auto;
+        /* Desplazamiento vertical */
+        z-index: 2000;
+        /* Prioridad máxima para el modal */
+    }
+
+    .sticky-button {
+        top: 600px;
+        /* Elimina la posición superior */
+        bottom: 20px;
+        /* Ajustado para móviles */
+        right: 5px;
+        /* Mueve el botón a la derecha */
+        left: auto;
+        /* Elimina la posición izquierda */
+        width: 50px;
+        /* Tamaño reducido */
+        height: 50px;
+        /* Tamaño reducido */
+        font-size: 24px;
+        /* Tamaño del icono reducido */
+    }
+
+    .filter-icon {
+        font-size: 24px;
+        /* Tamaño del icono por defecto */
+    }
+}

@@ -1,101 +1,14 @@
-.filter-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 20px auto;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .filter-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .filter-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .filter-group label {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 8px;
-    display: block;
-  }
-  
-  .filter-group input[type="date"] {
-    font-size: 1rem;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 100%;
-    transition: all 0.3s ease;
-  }
-  
-  .filter-group input[type="date"]:focus {
-    border-color: #007bff;
-    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .filter-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 15px;
-  }
-  
-  .filter-actions .apply-btn,
-  .filter-actions .clear-btn {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    flex: 1;
-  }
-  
-  .filter-actions .apply-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .filter-actions .apply-btn:hover {
-    background-color: #0156b1;
-  }
-  
-  .filter-actions .clear-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .filter-actions .clear-btn:hover {
-    background-color: #004b9b;
-  }
-  
-  @media (max-width: 768px) {
-    .filter-container {
-      padding: 15px;
-    }
-  
-    .filter-actions {
-      flex-direction: column;
-    }
-  
-    .filter-actions .apply-btn,
-    .filter-actions .clear-btn {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .filter-actions .clear-btn:last-child {
-      margin-bottom: 0;
-    }
-  }
-  
+.react-datepicker {
+  font-size: 14px;
+}
+
+.react-datepicker__header {
+  background-color: #007bff;
+  color: white;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+  background-color: #007bff;
+  color: white;
+}
